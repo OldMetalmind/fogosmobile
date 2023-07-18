@@ -205,7 +205,8 @@ class _FirstPageState extends State<FirstPage> with WidgetsBindingObserver {
                 value: status,
                 child: ListTileTheme(
                   style: ListTileStyle.drawer,
-                  selectedColor: Theme.of(context).accentColor,
+                  selectedColor: FogosTheme()
+                      .accentColor, // TODO: To be improved after updating how we tackle Theming
                   child: ListTile(
                     dense: true,
                     contentPadding: const EdgeInsets.all(0.0),
@@ -334,8 +335,7 @@ class _FirstPageState extends State<FirstPage> with WidgetsBindingObserver {
                   leading: Icon(Icons.list),
                 ),
                 ListTile(
-                  title:
-                      Text(FogosLocalizations.of(context).textFiresTable),
+                  title: Text(FogosLocalizations.of(context).textFiresTable),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamed(FIRES_TABLES_ROUTE);
@@ -352,8 +352,7 @@ class _FirstPageState extends State<FirstPage> with WidgetsBindingObserver {
                 ),
                 ListTile(
                   title:
-                      Text(
-                      FogosLocalizations.of(context).textWarningsMadeira),
+                      Text(FogosLocalizations.of(context).textWarningsMadeira),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamed(WARNINGS_MADEIRA_ROUTE);
@@ -361,8 +360,7 @@ class _FirstPageState extends State<FirstPage> with WidgetsBindingObserver {
                   leading: Icon(Icons.warning),
                 ),
                 ListTile(
-                  title:
-                      Text(FogosLocalizations.of(context).textInformations),
+                  title: Text(FogosLocalizations.of(context).textInformations),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamed(INFO_ROUTE);
@@ -370,8 +368,7 @@ class _FirstPageState extends State<FirstPage> with WidgetsBindingObserver {
                   leading: Icon(Icons.info),
                 ),
                 ListTile(
-                  title:
-                      Text(FogosLocalizations.of(context).textStatistics),
+                  title: Text(FogosLocalizations.of(context).textStatistics),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamed(STATISTICS_ROUTE);
@@ -380,8 +377,7 @@ class _FirstPageState extends State<FirstPage> with WidgetsBindingObserver {
                 ),
                 Divider(),
                 ListTile(
-                  title: Text(
-                      FogosLocalizations.of(context).textNotifications),
+                  title: Text(FogosLocalizations.of(context).textNotifications),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamed(SETTINGS_ROUTE);

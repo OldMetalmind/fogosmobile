@@ -9,11 +9,10 @@ class FogosTheme {
   ThemeData get themeData => _themeData;
 
   static final ThemeData _themeData = ThemeData(
-      brightness: Brightness.light,
-      iconTheme: IconThemeData(color: Colors.black),
-      indicatorColor: Colors.white,
-      primaryColor: _primaryColor,
-      primaryColorBrightness: Brightness.dark,
-      accentColor: _accentColor,
-      accentColorBrightness: Brightness.dark);
+    brightness: Brightness.light,
+    iconTheme: IconThemeData(color: Colors.black),
+    indicatorColor: Colors.white,
+    primaryColor: _primaryColor,
+    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: _accentColor),
+  );
 }
