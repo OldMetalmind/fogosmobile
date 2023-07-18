@@ -98,17 +98,20 @@ void main() async {
     }
   };
 
-  runZoned<Future<void>>(() async {
-    try {
-      SharedPreferencesManager.init().then((_) => runApp(MyApp()));
-    } catch (error, stackTrace) {
+  runZonedGuarded(
+    () async {
+      try {
+        SharedPreferencesManager.init().then((_) => runApp(MyApp()));
+      } catch (error, stackTrace) {
+        _reportError(error, stackTrace);
+      }
+    },
+    (error, stackTrace) {
+      // Whenever an error occurs, call the `_reportError` function. This sends
+      // Dart errors to the dev console or Sentry depending on the environment.
       _reportError(error, stackTrace);
-    }
-  }, onError: (error, stackTrace) {
-    // Whenever an error occurs, call the `_reportError` function. This sends
-    // Dart errors to the dev console or Sentry depending on the environment.
-    _reportError(error, stackTrace);
-  });
+    },
+  );
 
   await Firebase.initializeApp();
 }
