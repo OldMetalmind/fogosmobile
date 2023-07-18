@@ -68,16 +68,12 @@ Future<Null> _reportError(dynamic error, dynamic stackTrace) async {
 
   print('Reporting to Sentry.io...');
 
-  final SentryResponse response = await _sentry.captureException(
-    exception: error,
+  final SentryId sentryId = await _sentry.captureException(
+    error,
     stackTrace: stackTrace,
   );
 
-  if (response.isSuccessful) {
-    print('Success! Event ID: ${response.eventId}');
-  } else {
-    print('Failed to report to Sentry.io: ${response.error}');
-  }
+  print('Success! Event ID: $sentryId');
 }
 
 var logger = Logger(
@@ -96,7 +92,9 @@ void main() async {
     } else {
       // In production mode, report to the application zone to report to
       // Sentry.
-      Zone.current.handleUncaughtError(details.exception, details.stack);
+      if (details.stack != null) {
+        Zone.current.handleUncaughtError(details.exception, details.stack!);
+      }
     }
   };
 
