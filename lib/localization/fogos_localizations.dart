@@ -645,6 +645,13 @@ class FogosLocalizations {
 
   /// Retrieve localization resources for the widget tree
   /// corresponding to the given `context`
-  static FogosLocalizations of(BuildContext context) =>
-      Localizations.of<FogosLocalizations>(context, FogosLocalizations);
+  static FogosLocalizations of(BuildContext context) {
+    final localizations =
+        Localizations.of<FogosLocalizations>(context, FogosLocalizations);
+    if (localizations != null) {
+      return localizations;
+    } else {
+      throw Exception('Could not find FogosLocalizations in the widget tree');
+    }
+  }
 }
