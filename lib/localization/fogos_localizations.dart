@@ -43,10 +43,13 @@ class FogosLocalizations {
   static Future<FogosLocalizations> load(Locale locale) async {
     // If we're given "en_US", we'll use it as-is. If we're
     // given "en", we extract it and use it.
-    final String localeName =
-        locale.countryCode == null || locale.countryCode.isEmpty
-            ? locale.languageCode
-            : locale.toString();
+
+    String localeName;
+    if (locale.countryCode == null || (locale.countryCode?.isEmpty ?? true)) {
+      localeName = locale.languageCode;
+    } else {
+      localeName = locale.toString();
+    }
 
     // We make sure the locale name is in the right format e.g.
     // converting "en-US" to "en_US".
@@ -497,118 +500,119 @@ class FogosLocalizations {
       );
 
   String get textNotificationProblems => Intl.message(
-    "Se está com problemas em receber notificações, clique no botão abaixo.",
-    name: 'textNotificationProblems',
-    desc: 'If you are having problems receiving notifications, click the button below.',
-  );
+        "Se está com problemas em receber notificações, clique no botão abaixo.",
+        name: 'textNotificationProblems',
+        desc:
+            'If you are having problems receiving notifications, click the button below.',
+      );
 
   String get textResetNotifications => Intl.message(
-    "Reiniciar notificações",
-    name: 'textResetNotifications',
-    desc: 'Reset notifications',
-  );
+        "Reiniciar notificações",
+        name: 'textResetNotifications',
+        desc: 'Reset notifications',
+      );
 
   String get textDate => Intl.message(
-    "Data",
-    name: 'textDate',
-    desc: 'Data',
-  );
+        "Data",
+        name: 'textDate',
+        desc: 'Data',
+      );
 
   String get textBrightTi4 => Intl.message(
-    "Bright Ti4",
-    name: 'textBrightTi4',
-    desc: 'Bright Ti 4',
-  );
+        "Bright Ti4",
+        name: 'textBrightTi4',
+        desc: 'Bright Ti 4',
+      );
 
   String get textBrightTi5 => Intl.message(
-    "Bright Ti5",
-    name: 'textBrightTi5',
-    desc: 'Bright Ti 5',
-  );
+        "Bright Ti5",
+        name: 'textBrightTi5',
+        desc: 'Bright Ti 5',
+      );
 
   String get textFrp => Intl.message(
-    "Frp",
-    name: 'textFrp',
-    desc: "Frp",
-  );
+        "Frp",
+        name: 'textFrp',
+        desc: "Frp",
+      );
 
   String get textConfidence => Intl.message(
-    "Confiança",
-    name: 'textConfidence',
-    desc: "Confidence",
-  );
+        "Confiança",
+        name: 'textConfidence',
+        desc: "Confidence",
+      );
 
   String get textBrightness => Intl.message(
-    "Luminosidade",
-    name: 'textBrightness',
-    desc: "Brightness",
-  );
+        "Luminosidade",
+        name: 'textBrightness',
+        desc: "Brightness",
+      );
 
   String get textBrightT31 => Intl.message(
-    "Bright T31",
-    name: 'textBrightT31',
-    desc: "Bright T31",
-  );
+        "Bright T31",
+        name: 'textBrightT31',
+        desc: "Bright T31",
+      );
 
   String get textLowConfidence => Intl.message(
-    "Baixa",
-    name: 'textLowConfidence',
-    desc: "Low",
-  );
+        "Baixa",
+        name: 'textLowConfidence',
+        desc: "Low",
+      );
 
   String get textNominalConfidence => Intl.message(
-    "Normal",
-    name: 'textNominalConfidence',
-    desc: "Nominal",
-  );
+        "Normal",
+        name: 'textNominalConfidence',
+        desc: "Nominal",
+      );
 
   String get textHighConfidence => Intl.message(
-    "Alta",
-    name: 'textHighConfidence',
-    desc: "High",
-  );
+        "Alta",
+        name: 'textHighConfidence',
+        desc: "High",
+      );
 
   String get textPlanes => Intl.message(
-    "Aviões",
-    name: 'textPlanes',
-    desc: 'Notification Text Planes',
-  );
+        "Aviões",
+        name: 'textPlanes',
+        desc: 'Notification Text Planes',
+      );
 
-String get textDataTableStart => Intl.message(
-    "Início",
-    name: 'textDataTableStart',
-    desc: 'DataTable Start',
-  );
+  String get textDataTableStart => Intl.message(
+        "Início",
+        name: 'textDataTableStart',
+        desc: 'DataTable Start',
+      );
 
   String get textDataTableDistrict => Intl.message(
-    "Distrito",
-    name: 'textDataTableDistrict',
-    desc: 'DataTable District',
-  );
+        "Distrito",
+        name: 'textDataTableDistrict',
+        desc: 'DataTable District',
+      );
 
   String get textDataTableCounty => Intl.message(
-    "Concelho",
-    name: 'textDataTableCounty',
-    desc: 'DataTable Country',
-  );
+        "Concelho",
+        name: 'textDataTableCounty',
+        desc: 'DataTable Country',
+      );
 
   String get textDataTableParish => Intl.message(
-    "Freguesia",
-    name: 'textDataTableParish',
-    desc: 'DataTable Parish',
-  );
+        "Freguesia",
+        name: 'textDataTableParish',
+        desc: 'DataTable Parish',
+      );
 
   String get textDataTableLocality => Intl.message(
-    "Localidade",
-    name: 'textDataTableLocality',
-    desc: 'DataTable Locality',
-  );
+        "Localidade",
+        name: 'textDataTableLocality',
+        desc: 'DataTable Locality',
+      );
 
   String get textDataTableStatus => Intl.message(
-    "Estado",
-    name: 'textDataTableStatus',
-    desc: 'DataTable Status',
-  );
+        "Estado",
+        name: 'textDataTableStatus',
+        desc: 'DataTable Status',
+      );
 
   String textFireStatus(FireStatus status) {
     switch (status) {
