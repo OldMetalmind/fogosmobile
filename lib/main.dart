@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fogosmobile/actions/modis_actions.dart';
 import 'package:fogosmobile/actions/viirs_actions.dart';
 import 'package:fogosmobile/screens/fires_table/fires_table_page.dart';

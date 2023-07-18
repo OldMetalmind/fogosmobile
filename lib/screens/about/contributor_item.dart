@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:fogosmobile/models/contributor.dart';
 import 'package:fogosmobile/utils/uri_utils.dart';
 import 'package:auto_size_text/auto_size_text.dart';
