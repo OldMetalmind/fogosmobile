@@ -3,13 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fogosmobile/actions/fires_actions.dart';
-import 'package:fogosmobile/models/fire.dart';
 import 'package:fogosmobile/models/modis.dart';
-import 'package:fogosmobile/screens/utils/widget_utils.dart';
 import 'package:fogosmobile/screens/widgets/mapbox_markers/marker_base.dart';
-import 'package:fogosmobile/store/app_store.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 class ModisMarker extends StatefulWidget implements BaseMarker{

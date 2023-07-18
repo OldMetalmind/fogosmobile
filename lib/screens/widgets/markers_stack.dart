@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fogosmobile/models/base_location_model.dart';
-import 'package:fogosmobile/models/contributor.dart';
 import 'package:fogosmobile/models/fire.dart';
 import 'package:fogosmobile/models/modis.dart';
 import 'package:fogosmobile/models/viirs.dart';

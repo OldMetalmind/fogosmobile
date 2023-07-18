@@ -2,7 +2,6 @@ import 'package:fogosmobile/actions/contributors_actions.dart';
 import 'package:fogosmobile/models/contributor.dart';
 import 'package:fogosmobile/utils/network_utils.dart';
 import 'package:redux/redux.dart';
-import 'dart:convert';
 import 'package:fogosmobile/models/app_state.dart';
 import 'package:fogosmobile/constants/endpoints.dart';
 

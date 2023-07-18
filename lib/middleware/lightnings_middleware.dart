@@ -4,7 +4,6 @@ import 'package:fogosmobile/models/app_state.dart';
 import 'package:fogosmobile/models/lightning.dart';
 import 'package:fogosmobile/utils/network_utils.dart';
 import 'package:redux/redux.dart';
-import 'dart:convert';
 
 List<Middleware<AppState>> lightningMiddleware() {
   final loadLightnings = _createLightningStrikes();
