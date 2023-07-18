@@ -26,7 +26,6 @@ Middleware<AppState> _createLoadContributors() {
       store.dispatch(ContributorsLoadedAction(contributors));
     } catch (e) {
       print(e);
-      print(e.stackTrace);
       store.dispatch(ContributorsLoadedAction([]));
     }
   };
