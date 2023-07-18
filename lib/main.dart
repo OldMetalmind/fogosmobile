@@ -38,7 +38,7 @@ import 'package:fogosmobile/models/fire.dart';
 import 'package:fogosmobile/screens/warnings_madeira.dart';
 import 'package:logger/logger.dart';
 
-final SentryClient _sentry = SentryClient(dsn: SENTRY_DSN);
+final SentryClient _sentry = SentryClient(SentryOptions(dsn: SENTRY_DSN));
 
 typedef SetFiltersCallback = Function(FireStatus filter);
 
