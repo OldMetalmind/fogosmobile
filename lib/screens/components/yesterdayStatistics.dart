@@ -13,7 +13,7 @@ class YesterdayStatistics extends StatelessWidget {
     return StoreConnector<AppState, YesterdayStats>(
         converter: (Store<AppState> store) => store.state.yesterdayStats,
         builder: (BuildContext context, YesterdayStats yesterdayStats) {
-          if (yesterdayStats == null) {
+          if (yesterdayStats.districtList.isEmpty) {
             return Center(child: CircularProgressIndicator());
           }
           var intervalSeries = [

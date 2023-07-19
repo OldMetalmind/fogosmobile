@@ -15,7 +15,7 @@ class NowStatistics extends StatelessWidget {
     return StoreConnector<AppState, NowStats>(
       converter: (Store<AppState> store) => store.state.nowStats,
       builder: (BuildContext context, NowStats stats) {
-        if (stats == null) {
+        if (stats.total == '0' || stats.total.isEmpty) {
           return Center(child: CircularProgressIndicator());
         }
 

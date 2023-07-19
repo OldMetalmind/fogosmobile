@@ -25,13 +25,14 @@ class WarningsMadeira extends StatelessWidget {
             store.dispatch(LoadWarningsMadeiraAction());
           },
           builder: (BuildContext context, AppState state) {
-            List warnings = state.warningsMadeira;
-            if (warnings == null) {
-              if (state.errors != null && state.errors.contains('warningsMadeira')) {
-                return Center(child: Text(FogosLocalizations.of(context).textProblemLoadingData));
-              }
-
+            if (state.isLoading) {
               return Center(child: CircularProgressIndicator());
+            }
+            List warnings = state.warningsMadeira;
+            if (state.errors.contains('warningsMadeira')) {
+              return Center(
+                  child: Text(
+                      FogosLocalizations.of(context).textProblemLoadingData));
             }
 
             return WarningsList(warnings: warnings);

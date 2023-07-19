@@ -13,7 +13,7 @@ class WeekStatistics extends StatelessWidget {
     return StoreConnector<AppState, WeekStats>(
         converter: (Store<AppState> store) => store.state.weekStats,
         builder: (BuildContext context, WeekStats weekStats) {
-          if (weekStats == null) {
+          if (weekStats.days.isEmpty) {
             return Center(child: CircularProgressIndicator());
           }
 

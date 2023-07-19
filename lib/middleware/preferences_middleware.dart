@@ -40,7 +40,7 @@ Middleware<AppState> _createLoadPreferences() {
         data['pref-${location['key']}'] = prefs.getInt(location['key']) ?? 0;
       }
 
-      List<String> subbedFires = prefs.getStringList('subscribedFires') ?? [];
+      List<String> subbedFires = prefs.getStringList('subscribedFires');
       List<Fire> fires = store.state.fires;
 
       if (fires.length > 0) {
@@ -95,8 +95,7 @@ Middleware<AppState> _createSetNotification() {
 
     try {
       final prefs = SharedPreferencesManager.preferences;
-      List<String> subscribedFires =
-          prefs.getStringList('subscribedFires') ?? [];
+      List<String> subscribedFires = prefs.getStringList('subscribedFires');
       if (action.value == 1 && subscribedFires.contains(action.key) == false) {
         subscribedFires.add(action.key);
         _firebaseMessaging.subscribeToTopic(topic);

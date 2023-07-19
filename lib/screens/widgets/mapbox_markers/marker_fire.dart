@@ -41,6 +41,7 @@ class FireMarker extends StatefulWidget implements BaseMarker {
 
 class FireMarkerState extends BaseMarkerState<FireMarker> {
   ///TODO: Review, not being used.
+  // ignore: unused_field
   final _iconSize = 10.0;
 
   late Point _position;

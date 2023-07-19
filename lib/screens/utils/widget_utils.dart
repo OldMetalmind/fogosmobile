@@ -9,9 +9,9 @@ Color getFireColor(Fire fire) {
   if (fire.important == true) {
     fireStatus = 'FF0000';
   }
-  
+
   return Color(
-    fireStatus == null ? 0xFF000000 : int.parse('0xFF$fireStatus'),
+    fireStatus.isEmpty ? 0xFF000000 : int.parse('0xFF$fireStatus'),
   );
 }
 

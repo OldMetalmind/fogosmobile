@@ -66,7 +66,7 @@ class _MarkerStackState<T extends BaseMapboxModel, V extends BaseMarker,
   Widget build(BuildContext context) {
     final markers =
         widget.data.where((value) => !value.skip(widget.filters)).toList();
-    final latLngs = markers.map<LatLng>((item) => item.location).toList() ?? [];
+    final latLngs = markers.map<LatLng>((item) => item.location).toList();
     widget.mapController.toScreenLocationBatch(latLngs).then((value) {
       value.asMap().forEach((index, value) {
         final point = Point<double>(value.x as double, value.y as double);

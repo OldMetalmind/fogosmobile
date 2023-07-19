@@ -50,8 +50,7 @@ class SharedPreferencesManager {
   /// Values must NOT be `null`, if you want to remove a [value] for a specific [key]
   /// use the `remove()` method instead.
   Future<bool> save(String key, dynamic value) async {
-    assert(key != null && value != null);
-    if (_instance == null) _throwError();
+    assert(value != null);
     if (_showLogs) print('$_tag: Saving value [$value] for key [$key].');
 
     if (value is bool) {
@@ -75,9 +74,12 @@ class SharedPreferencesManager {
   Future<bool> remove(String key) async {
     if (_showLogs) print('$_tag: Removing value for key [$key].');
 
-    return _instance.remove(key).catchError((error) {
-      print(
-          '$_tag: Couldn\'t get remove the value for the key [$key]. Operation failed with the error: $error');
-    });
+    return _instance.remove(key).catchError(
+      (error) {
+        print(
+            '$_tag: Couldn\'t get remove the value for the key [$key]. Operation failed with the error: $error');
+        return error;
+      },
+    );
   }
 }

@@ -98,10 +98,10 @@ AppState appReducer(AppState state, action) {
   } else if (action is ModisLoadedAction) {
     isLoading = false;
   } else if (action is ShowViirsAction) {
-    showViirs = !(state.showViirs ?? false);
+    showViirs = !(state.showViirs);
     isLoading = state.isLoading;
   } else if (action is ShowModisAction) {
-    showModis = !(state.showModis ?? false);
+    showModis = !(state.showModis);
     isLoading = state.isLoading;
   } else {
     isLoading = false;

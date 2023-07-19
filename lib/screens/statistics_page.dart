@@ -21,7 +21,9 @@ class StatisticsPage extends StatefulWidget {
 
 class _StatisticsPageState extends State<StatisticsPage> {
   //TODO: Review these are not being used
+  // ignore: unused_field
   YesterdayStats? _yesterdayStats;
+  // ignore: unused_field
   TodayStats? _todayStats;
 
   final TextStyle _header = TextStyle(

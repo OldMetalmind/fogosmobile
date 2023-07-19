@@ -10,7 +10,7 @@ class ImportantFireExtra extends StatelessWidget {
   _getImportantFireExtraInfo() {
     List<Widget> extraInfo = [];
 
-    if (fire.extra != null && fire.extra.isNotEmpty) {
+    if (fire.extra.isNotEmpty) {
       extraInfo.add(
         Text(
           fire.extra,
@@ -24,7 +24,7 @@ class ImportantFireExtra extends StatelessWidget {
       );
     }
 
-    if (fire.cos != null && fire.cos.isNotEmpty) {
+    if (fire.cos.isNotEmpty) {
       extraInfo.add(
         Text(
           fire.cos,
@@ -38,7 +38,7 @@ class ImportantFireExtra extends StatelessWidget {
       );
     }
 
-    if (fire.pco != null && fire.pco.isNotEmpty) {
+    if (fire.pco.isNotEmpty) {
       extraInfo.add(
         Text(
           fire.pco,

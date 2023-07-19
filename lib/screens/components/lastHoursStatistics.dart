@@ -12,7 +12,7 @@ class LastHoursStatistics extends StatelessWidget {
     return StoreConnector<AppState, LastHoursStats>(
         converter: (Store<AppState> store) => store.state.lastHoursStats,
         builder: (BuildContext context, LastHoursStats lastHoursStats) {
-          if (lastHoursStats == null) {
+          if (lastHoursStats.lastHours.isEmpty) {
             return Center(child: CircularProgressIndicator());
           }
 
@@ -64,8 +64,8 @@ class LastHoursStatistics extends StatelessWidget {
                   cellPadding: EdgeInsets.only(right: 16.0, bottom: 4.0),
                 )
               ],
-              defaultRenderer: charts.LineRendererConfig(
-                  includeArea: true, stacked: false),
+              defaultRenderer:
+                  charts.LineRendererConfig(includeArea: true, stacked: false),
               dateTimeFactory: const charts.LocalDateTimeFactory(),
             ),
             height: 400,

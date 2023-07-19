@@ -29,9 +29,6 @@ class ViirsResult {
       };
 
   static List<Viirs> fromMap(Map<String, dynamic> obj) {
-    if (obj == null) {
-      return [];
-    }
     return obj.values.map((map) => Viirs.fromJson(map)).toList();
   }
 }
@@ -53,19 +50,19 @@ class Viirs extends BaseMapboxModel implements Equatable {
     required this.daynight,
   }) : super(LatLng(latitude, longitude), '$latitude');
 
-  double latitude;
-  double longitude;
-  String brightTi4;
-  String scan;
-  String track;
-  DateTime acqDate;
-  String acqTime;
-  String satellite;
-  String confidence;
-  String version;
-  String brightTi5;
-  String frp;
-  String daynight;
+  final double latitude;
+  final double longitude;
+  final String brightTi4;
+  final String scan;
+  final String track;
+  final DateTime acqDate;
+  final String acqTime;
+  final String satellite;
+  final String confidence;
+  final String version;
+  final String brightTi5;
+  final String frp;
+  final String daynight;
 
   factory Viirs.fromJson(Map<String, dynamic> json) => Viirs(
         latitude: json["latitude"],

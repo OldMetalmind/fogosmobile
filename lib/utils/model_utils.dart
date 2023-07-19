@@ -9,17 +9,29 @@ const average = "average";
 
 List<Fire> calculateFireImportance(List<Fire> fires) {
   var firesStatus = {numberOfFires: 0, topImportance: 0.0, average: 0.0};
-  for (var fire in fires) {
-    fire.importance = _calculateImportanceValue(fire, firesStatus);
+  for (int i = 0; i < fires.length; i++) {
+    double? importanceValue;
+    final fire = fires[i];
+
+    importanceValue = _calculateImportanceValue(fire, firesStatus);
+
     if (fire.important == true) {
-      fire.importance = fire.importance * 1.5;
+      importanceValue = importanceValue * 1.5;
     }
+
+    fires[i] = fire.copyWith(importance: importanceValue);
   }
 
-  for (var fire in fires) {
-    fire.scale = _getPonderatedImportanceFactor(
-            fire.importance, fire.statusCode, firesStatus) /
+  for (int j = 0; j < fires.length; j++) {
+    var fire = fires[j];
+    final scale = _getPonderatedImportanceFactor(
+          fire.importance ?? 1,
+          fire.statusCode,
+          firesStatus,
+        ) /
         1.5;
+
+    fires[j] = fire.copyWith(scale: scale);
   }
   return fires;
 }
