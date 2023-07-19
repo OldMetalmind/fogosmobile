@@ -15,16 +15,20 @@ class DetailsHistoryStats extends StatelessWidget {
     return StoreConnector<AppState, AppState>(
       converter: (Store<AppState> store) => store.state,
       onInit: (Store<AppState> store) {
-        store.dispatch(LoadFireDetailsHistoryAction(store.state.selectedFire.id));
+        store.dispatch(
+            LoadFireDetailsHistoryAction(store.state.selectedFire?.id));
       },
       builder: (BuildContext context, AppState state) {
         DetailsHistory stats = state.fireDetailsHistory;
 
-        if (stats == null) {
-          if (state.errors != null && state.errors.contains('fireDetailsHistory')) {
-            return Center(child: Text(FogosLocalizations.of(context).textProblemLoadingData));
-          }
+        if (state.isLoading) {
           return Center(child: CircularProgressIndicator());
+        }
+
+        if (state.errors.contains('fireDetailsHistory')) {
+          return Center(
+            child: Text(FogosLocalizations.of(context).textProblemLoadingData),
+          );
         }
 
         return Container(

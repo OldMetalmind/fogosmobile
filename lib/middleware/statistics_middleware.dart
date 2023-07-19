@@ -38,7 +38,6 @@ Middleware<AppState> _createLoadNowStats() {
       store.dispatch(NowStatsLoadedAction(nowStats));
     } catch (e) {
       print(e);
-      print(e.stackTrace);
       store.dispatch(NowStatsLoadedAction(null));
     }
   };
@@ -58,7 +57,6 @@ Middleware<AppState> _createTodayStats() {
       store.dispatch(TodayStatsLoadedAction(todayStats));
     } catch (e) {
       print(e);
-      print(e.stackTrace);
       store.dispatch(TodayStatsLoadedAction(null));
     }
   };
@@ -78,7 +76,6 @@ Middleware<AppState> _createYesterdayStats() {
       store.dispatch(YesterdayStatsLoadedAction(yesterdayStats));
     } catch (e) {
       print(e);
-      print(e.stackTrace);
       store.dispatch(YesterdayStatsLoadedAction(null));
     }
   };
@@ -98,7 +95,6 @@ Middleware<AppState> _createLastNightStats() {
       store.dispatch(LastNightStatsLoadedAction(lastNightStats));
     } catch (e) {
       print(e);
-      print(e.stackTrace);
       store.dispatch(LastNightStatsLoadedAction(null));
     }
   };
@@ -118,7 +114,6 @@ Middleware<AppState> _createWeekStats() {
       store.dispatch(WeekStatsLoadedAction(weekStats));
     } catch (e) {
       print(e);
-      print(e.stackTrace);
       store.dispatch(WeekStatsLoadedAction(null));
     }
   };
@@ -138,7 +133,6 @@ Middleware<AppState> _createLastHoursStats() {
       store.dispatch(LastHoursLoadedAction(lastHoursStats));
     } catch (e) {
       print(e);
-      print(e.stackTrace);
       store.dispatch(LastHoursLoadedAction(null));
     }
   };

@@ -36,7 +36,7 @@ fireMeansHistoryReducer(MeansHistory data, action) {
   }
 }
 
-fireDetailsHistoryReducer(DetailsHistory data, action) {
+fireDetailsHistoryReducer(DetailsHistory? data, action) {
   if (action is LoadFireDetailsHistoryAction) {
     return data;
   } else if (action is FireDetailsHistoryLoadedAction) {

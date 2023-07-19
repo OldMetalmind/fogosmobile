@@ -7,7 +7,10 @@ import 'package:fogosmobile/screens/utils/date_utils.dart';
 class ModisModal extends StatelessWidget {
   final Modis modis;
 
-  const ModisModal({Key key, this.modis}) : super(key: key);
+  const ModisModal({
+    super.key,
+    required this.modis,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +34,18 @@ class ModisModal extends StatelessWidget {
               text: TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                      text: "${FogosLocalizations.of(context).textDate}: ",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black)),
+                    text: "${FogosLocalizations.of(context).textDate}: ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                   TextSpan(
-                      text: FogosDateUtils.getDate(modis.acqDate),
-                      style: TextStyle(color: Colors.black)),
+                    text: FogosDateUtils.getDate(modis.acqDate),
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -44,12 +53,18 @@ class ModisModal extends StatelessWidget {
               text: TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                      text: "${FogosLocalizations.of(context).textBrightT31}: ",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black)),
+                    text: "${FogosLocalizations.of(context).textBrightT31}: ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                   TextSpan(
-                      text: modis.brightT31,
-                      style: TextStyle(color: Colors.black)),
+                    text: modis.brightT31,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -57,13 +72,18 @@ class ModisModal extends StatelessWidget {
               text: TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                      text:
-                      "${FogosLocalizations.of(context).textBrightness}: ",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black)),
+                    text: "${FogosLocalizations.of(context).textBrightness}: ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                   TextSpan(
-                      text: modis.brightness,
-                      style: TextStyle(color: Colors.black)),
+                    text: modis.brightness,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -71,11 +91,18 @@ class ModisModal extends StatelessWidget {
               text: TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                      text: "${FogosLocalizations.of(context).textFrp}: ",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black)),
+                    text: "${FogosLocalizations.of(context).textFrp}: ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                   TextSpan(
-                      text: modis.frp, style: TextStyle(color: Colors.black)),
+                    text: modis.frp,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -83,13 +110,18 @@ class ModisModal extends StatelessWidget {
               text: TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                      text:
-                      "${FogosLocalizations.of(context).textConfidence}: ",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black)),
+                    text: "${FogosLocalizations.of(context).textConfidence}: ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                   TextSpan(
-                      text: "${modis.confidence}%",
-                      style: TextStyle(color: Colors.black)),
+                    text: "${modis.confidence}%",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 ],
               ),
             ),

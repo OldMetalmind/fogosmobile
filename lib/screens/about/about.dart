@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fogosmobile/actions/contributors_actions.dart';
 import 'package:fogosmobile/localization/fogos_localizations.dart';
 import 'package:fogosmobile/models/app_state.dart';
+import 'package:fogosmobile/models/contributor.dart';
 import 'package:fogosmobile/screens/about/contributor_item.dart';
 import 'package:fogosmobile/screens/components/fire_gradient_app_bar.dart';
 import 'package:fogosmobile/utils/uri_utils.dart';
@@ -20,20 +21,20 @@ class About extends StatelessWidget {
         },
         builder: (BuildContext context, AppState state) {
           if (state.hasContributors) {
-            return StoreConnector<AppState, List>(
-                converter: (Store<AppState> store) => store.state.contributors,
-                builder: (BuildContext context, List contributors) {
-                  if (contributors != null) {
-                    return Scrollbar(
-                      child: ListView.builder(
-                        padding: EdgeInsets.only(top: 8.0),
-                        itemBuilder: (_, int i) =>
-                            ContributorItem(contributor: contributors[i]),
-                        itemCount: contributors.length,
-                      ),
-                    );
-                  }
-                });
+            return StoreConnector<AppState, List<Contributor>>(
+              converter: (Store<AppState> store) => store.state.contributors,
+              builder: (BuildContext context, List<Contributor> contributors) {
+                return Scrollbar(
+                  child: ListView.builder(
+                    itemCount: contributors.length,
+                    padding: EdgeInsets.only(top: 8.0),
+                    itemBuilder: (_, int i) {
+                      return ContributorItem(contributor: contributors[i]);
+                    },
+                  ),
+                );
+              },
+            );
           } else {
             return Center(
               child: CircularProgressIndicator(),
@@ -66,7 +67,8 @@ class About extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: '${FogosLocalizations.of(context).textRecordsFrom} ',
+                          text:
+                              '${FogosLocalizations.of(context).textRecordsFrom} ',
                           style: TextStyle(color: Colors.black),
                         ),
                         TextSpan(

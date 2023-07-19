@@ -24,7 +24,8 @@ List<Middleware<AppState>> firesMiddleware() {
     TypedMiddleware<AppState, LoadFiresAction>(loadFires),
     TypedMiddleware<AppState, LoadFireAction>(loadFire),
     TypedMiddleware<AppState, LoadFireMeansHistoryAction>(loadFireMeansHistory),
-    TypedMiddleware<AppState, LoadFireDetailsHistoryAction>(loadFireDetailsHistory),
+    TypedMiddleware<AppState, LoadFireDetailsHistoryAction>(
+        loadFireDetailsHistory),
     TypedMiddleware<AppState, LoadFireRiskAction>(loadFireRisk),
     TypedMiddleware<AppState, SelectFireFiltersAction>(selectFireFilters),
   ];
@@ -47,7 +48,8 @@ Middleware<AppState> _createLoadFires() {
       store.dispatch(FiresLoadedAction(fires));
 
       final prefs = SharedPreferencesManager.preferences;
-      List<FireStatus> saveFilters = Fire.listFromActiveFilters(prefs.getStringList('active_filters'));
+      List<FireStatus> saveFilters =
+          Fire.listFromActiveFilters(prefs.getStringList('active_filters'));
       store.dispatch(SavedFireFiltersAction(saveFilters));
     } catch (e) {
       store.dispatch(FiresLoadedAction([]));
@@ -81,18 +83,25 @@ Middleware<AppState> _createLoadFire() {
     } catch (e) {
       store.dispatch(FireLoadedAction(null));
       store.dispatch(AddErrorAction('fire'));
-      if (e is DioError) {
-        if (e.response != null) {
-          if (e.response.statusCode >= 400) {
-            throw StateError('Server responded with ${e.response.statusCode}: $url');
-          }
-        }
+      if (e is DioException) {
+        _checkDioExceptionStatusCode(e, url);
       } else {
         print('throwing error');
         throw e;
       }
     }
   };
+}
+
+void _checkDioExceptionStatusCode(DioException e, String url) {
+  if (e.response != null) {
+    if (e.response!.statusCode != null) {
+      if (e.response!.statusCode! >= 400) {
+        throw StateError(
+            'Server responded with ${e.response!.statusCode}: $url');
+      }
+    }
+  }
 }
 
 Middleware<AppState> _createLoadFireMeansHistory() {
@@ -114,12 +123,8 @@ Middleware<AppState> _createLoadFireMeansHistory() {
     } catch (e) {
       store.dispatch(FireMeansHistoryLoadedAction(null));
       store.dispatch(AddErrorAction('fireMeansHistory'));
-      if (e is DioError) {
-        if (e.response != null) {
-          if (e.response.statusCode >= 400) {
-            throw StateError('Server responded with ${e.response.statusCode}: $url');
-          }
-        }
+      if (e is DioException) {
+        _checkDioExceptionStatusCode(e, url);
       } else {
         print('throwing error');
         throw e;
@@ -147,12 +152,8 @@ Middleware<AppState> _createLoadFireDetailsHistory() {
     } catch (e) {
       store.dispatch(FireDetailsHistoryLoadedAction(null));
       store.dispatch(AddErrorAction('fireDetailsHistory'));
-      if (e is DioError) {
-        if (e.response != null) {
-          if (e.response.statusCode >= 400) {
-            throw StateError('Server responded with ${e.response.statusCode}: $url');
-          }
-        }
+      if (e is DioException) {
+        _checkDioExceptionStatusCode(e, url);
       } else {
         print('throwing error');
         throw e;
@@ -182,12 +183,8 @@ Middleware<AppState> _createLoadFireRisk() {
     } catch (e) {
       store.dispatch(FireRiskLoadedAction(null));
       store.dispatch(AddErrorAction('fireRisk'));
-      if (e is DioError) {
-        if (e.response != null) {
-          if (e.response.statusCode >= 400) {
-            throw StateError('Server responded with ${e.response.statusCode}: $url');
-          }
-        }
+      if (e is DioException) {
+        _checkDioExceptionStatusCode(e, url);
       } else {
         print('throwing error');
         throw e;
@@ -202,7 +199,8 @@ Middleware<AppState> _createSelectFireFilters() {
     try {
       final prefs = SharedPreferencesManager.preferences;
       FireStatus filter = action.filter;
-      List<FireStatus> saveFilters = Fire.listFromActiveFilters(prefs.getStringList('active_filters'));
+      List<FireStatus> saveFilters =
+          Fire.listFromActiveFilters(prefs.getStringList('active_filters'));
 
       if (saveFilters.contains(filter)) {
         saveFilters.remove(filter);

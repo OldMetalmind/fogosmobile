@@ -28,16 +28,15 @@ class MarkerStack<T extends BaseMapboxModel, V extends BaseMarker,
   final List<F> filters;
 
   MarkerStack({
-    @required this.mapController,
-    @required this.data,
+    required this.mapController,
+    required this.data,
     this.ignoreTouch = false,
-    this.openModal,
-    this.filters,
-    Key key,
+    required this.openModal,
+    required this.filters,
+    super.key,
   })  : this._markers = {},
-        this._markerStates = [],
-        super(key: key) {
-    this.mapController?.addListener(() {
+        this._markerStates = [] {
+    this.mapController.addListener(() {
       if (mapController.isCameraMoving) {
         updatePositions();
       }
@@ -50,7 +49,7 @@ class MarkerStack<T extends BaseMapboxModel, V extends BaseMarker,
       latLngs.add(markerState.getCoordinates());
     }
 
-    mapController?.toScreenLocationBatch(latLngs)?.then((points) {
+    mapController.toScreenLocationBatch(latLngs).then((points) {
       _markerStates.asMap().forEach((index, _) {
         _markerStates[index].updatePosition(points[index]);
       });
@@ -59,8 +58,6 @@ class MarkerStack<T extends BaseMapboxModel, V extends BaseMarker,
 
   @override
   _MarkerStackState createState() => _MarkerStackState<T, V, B, F>();
-
-
 }
 
 class _MarkerStackState<T extends BaseMapboxModel, V extends BaseMarker,
@@ -68,18 +65,14 @@ class _MarkerStackState<T extends BaseMapboxModel, V extends BaseMarker,
   @override
   Widget build(BuildContext context) {
     final markers =
-        widget.data?.where((value) => !value.skip(widget.filters))?.toList();
-    final latLngs =
-        markers
-            ?.map<LatLng>((item) => item.location)
-            ?.toList() ??
-        [];
-    widget.mapController?.toScreenLocationBatch(latLngs)?.then((value) {
+        widget.data.where((value) => !value.skip(widget.filters)).toList();
+    final latLngs = markers.map<LatLng>((item) => item.location).toList() ?? [];
+    widget.mapController.toScreenLocationBatch(latLngs).then((value) {
       value.asMap().forEach((index, value) {
         final point = Point<double>(value.x as double, value.y as double);
         final latLng = latLngs[index];
         final item = markers[index];
-        _addMarker(item, latLng, point);
+        _addMarker<BaseMapboxModel>(item, latLng, point);
       });
       setState(() {});
     });
@@ -92,48 +85,55 @@ class _MarkerStackState<T extends BaseMapboxModel, V extends BaseMarker,
     );
   }
 
-  void _addMarker(T item, LatLng latLng, Point<double> point) {
+  void _addMarker<T>(T item, LatLng latLng, Point<double> point) {
     var value;
     switch (V) {
       case ViirsMarker:
-        value = ViirsMarker(
-          item.getId,
-          item as Viirs,
-          item.location,
-          point,
-          _addMarkerState,
-          _openModal,
-        );
+        if (item is Viirs) {
+          value = ViirsMarker(
+            item.getId,
+            item,
+            item.location,
+            point,
+            _addMarkerState,
+            _openModal,
+          );
+        }
         break;
       case ModisMarker:
-        value = ModisMarker(
-          item.getId,
-          item as Modis,
-          item.location,
-          point,
-          _addMarkerState,
-          _openModal,
-        );
+        if (item is Modis) {
+          value = ModisMarker(
+            item.getId,
+            item,
+            item.location,
+            point,
+            _addMarkerState,
+            _openModal,
+          );
+        }
         break;
       case FireMarker:
-        value = FireMarker(
-          item.getId,
-          item as Fire,
-          item.location,
-          point,
-          _addMarkerState,
-          _openModal,
-        );
+        if (item is Fire) {
+          value = FireMarker(
+            item.getId,
+            item,
+            item.location,
+            point,
+            _addMarkerState,
+            _openModal,
+          );
+        }
+
         break;
     }
 
-    if (value != null) {
-      widget._markers.putIfAbsent(item.getId, () => value);
+    if (value != null && item is BaseMapboxModel) {
+      widget._markers.putIfAbsent(item.id, () => value);
     }
   }
 
   void _openModal(dynamic item) {
-    widget.openModal?.call(item);
+    widget.openModal.call(item);
   }
 
   void _addMarkerState(state) {

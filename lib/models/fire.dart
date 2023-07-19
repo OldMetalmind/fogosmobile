@@ -52,41 +52,43 @@ class Fire extends BaseMapboxModel implements Equatable {
   final String time;
 
   // Importance
-  double importance;
-  double scale;
+  final double? importance;
+  final double? scale;
 
   // extra
-  String extra;
-  String cos;
-  String pco;
+  final String extra;
+  final String cos;
+  final String pco;
 
   Fire({
-    this.id,
-    this.sharepointId,
-    this.active,
-    this.important,
-    this.status,
-    this.statusCode,
-    this.statusColor,
-    this.nature,
-    this.natureCode,
-    this.aerial,
-    this.terrain,
-    this.human,
-    this.district,
-    this.city,
-    this.town,
-    this.local,
-    this.lat,
-    this.lng,
-    this.created,
-    this.date,
-    this.dateTime,
-    this.time,
-    this.extra,
-    this.cos,
-    this.pco,
-  }) : super(LatLng(lat ?? 0.0, lng ?? 0.0), id);
+    required this.id,
+    required this.sharepointId,
+    required this.active,
+    required this.important,
+    required this.status,
+    required this.statusCode,
+    required this.statusColor,
+    required this.nature,
+    required this.natureCode,
+    required this.aerial,
+    required this.terrain,
+    required this.human,
+    required this.district,
+    required this.city,
+    required this.town,
+    required this.local,
+    required this.lat,
+    required this.lng,
+    required this.created,
+    required this.date,
+    required this.dateTime,
+    required this.time,
+    required this.extra,
+    required this.cos,
+    required this.pco,
+    this.importance,
+    this.scale,
+  }) : super(LatLng(lat, lng), id);
 
   Map<String, dynamic> _toMap() {
     return {
@@ -200,15 +202,19 @@ class Fire extends BaseMapboxModel implements Equatable {
   }
 
   static List<String> activeFiltersToList(List<FireStatus> statusList) {
-    return statusList?.map((filter) => Fire._statusToJson(filter))?.toList() ??
-        [];
+    return statusList
+        .map(
+          (filter) => Fire._statusToJson(filter),
+        )
+        .toList();
   }
 
   static List<FireStatus> listFromActiveFilters(List<String> statusList) {
     return statusList
-            ?.map((filter) => Fire._statusFromJson(filter))
-            ?.toList() ??
-        List.from(FireStatus.values);
+        .map(
+          (filter) => Fire._statusFromJson(filter),
+        )
+        .toList();
   }
 
   String get fullAddress => '$district, $city, $town, $local';
@@ -221,9 +227,6 @@ class Fire extends BaseMapboxModel implements Equatable {
 
   @override
   bool skip<T>(List<T> filters) {
-    if (filters != null) {
-      return !filters.contains(status);
-    } else
-      return true;
+    return filters.contains(status);
   }
 }

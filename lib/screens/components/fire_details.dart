@@ -10,7 +10,7 @@ import 'package:fogosmobile/constants/routes.dart';
 import 'package:fogosmobile/screens/utils/widget_utils.dart';
 import 'package:fogosmobile/screens/assets/images.dart';
 import 'package:fogosmobile/screens/components/fire_details/important_fire_extra.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:redux/redux.dart';
 import 'package:share/share.dart';
 
@@ -29,10 +29,12 @@ class FireDetails extends StatelessWidget {
         return StoreConnector<AppState, AppState>(
           converter: (Store<AppState> store) => store.state,
           builder: (BuildContext context, AppState state) {
-            Fire fire = state.selectedFire;
+            Fire? fire = state.selectedFire;
             if (fire == null) {
-              if (state.errors != null && state.errors.contains('fire')) {
-                return Center(child: Text(FogosLocalizations.of(context).textProblemLoadingData));
+              if (state.errors.contains('fire')) {
+                return Center(
+                    child: Text(
+                        FogosLocalizations.of(context).textProblemLoadingData));
               }
 
               return ModalProgressHUD(
@@ -62,8 +64,7 @@ class FireDetails extends StatelessWidget {
                 return SingleChildScrollView(
                   child: Container(
                     child: Padding(
-                      padding:
-                          const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 16.0),
+                      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 16.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -269,7 +270,7 @@ class FireDetails extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                 Padding(
+                                Padding(
                                   padding: EdgeInsets.only(top: 20.0),
                                 ),
                                 ImportantFireExtra(fire),

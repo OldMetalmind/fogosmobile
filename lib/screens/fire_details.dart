@@ -26,7 +26,7 @@ class FireDetailsPage extends StatelessWidget {
       },
       converter: (Store<AppState> store) => store.state,
       builder: (BuildContext context, AppState state) {
-        Fire fire = state.selectedFire;
+        Fire? fire = state.selectedFire;
 
         if (fire == null) {
           return Scaffold(
@@ -58,15 +58,28 @@ class FireDetailsPage extends StatelessWidget {
           body: Container(
             child: ListView(
               children: <Widget>[
-                ListTile(title: Text(FogosLocalizations.of(context).textResources.toUpperCase(), style: _header)),
+                ListTile(
+                    title: Text(
+                        FogosLocalizations.of(context)
+                            .textResources
+                            .toUpperCase(),
+                        style: _header)),
                 SizedBox(height: 15),
                 MeansStatistics(),
                 SizedBox(height: 25),
-                ListTile(title: Text(FogosLocalizations.of(context).textStatus.toUpperCase(), style: _header)),
+                ListTile(
+                    title: Text(
+                        FogosLocalizations.of(context).textStatus.toUpperCase(),
+                        style: _header)),
                 SizedBox(height: 15),
                 DetailsHistoryStats(),
                 SizedBox(height: 25),
-                ListTile(title: Text(FogosLocalizations.of(context).textRiskOfFire.toUpperCase(), style: _header)),
+                ListTile(
+                    title: Text(
+                        FogosLocalizations.of(context)
+                            .textRiskOfFire
+                            .toUpperCase(),
+                        style: _header)),
                 SizedBox(height: 15),
                 FireRisk(),
                 SizedBox(height: 25),

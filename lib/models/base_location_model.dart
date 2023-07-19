@@ -13,5 +13,4 @@ abstract class BaseMapboxModel {
 
   /// Case this object has a status same as the filter, it should not be shown
   bool skip<T>(List<T> filter);
-
 }

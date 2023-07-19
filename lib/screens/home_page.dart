@@ -22,7 +22,7 @@ import 'package:fogosmobile/screens/widgets/satellite_button.dart';
 import 'package:fogosmobile/screens/widgets/viirs_button.dart';
 import 'package:fogosmobile/screens/widgets/viirs_modal.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:redux/redux.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
 
   var currentMapboxTemplate = 0;
 
-  MapboxMapController _mapController;
+  late MapboxMapController? _mapController;
 
   void _onMapCreated(MapboxMapController controller) {
     _mapController = controller;
@@ -74,12 +74,10 @@ class _HomePageState extends State<HomePage> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('Firebase onMessageOpenedApp ${message.toString()}');
       String fireId = message.data["fireId"];
-      if (fireId != null) {
-        final store = StoreProvider.of<AppState>(context);
-        store.dispatch(ClearFireAction());
-        store.dispatch(LoadFireAction(fireId));
-        _openModalSheet(context);
-      }
+      final store = StoreProvider.of<AppState>(context);
+      store.dispatch(ClearFireAction());
+      store.dispatch(LoadFireAction(fireId));
+      _openModalSheet(context);
     });
 
     return StoreConnector<AppState, AppState>(
@@ -113,29 +111,32 @@ class _HomePageState extends State<HomePage> {
                   zoom: 7.0,
                 ),
               ),
-              MarkerStack<Fire, FireMarker, FireMarkerState, FireStatus>(
-                mapController: _mapController,
-                data: state.fires,
-                filters: state.activeFilters,
-                openModal: (_) {
-                  _openModalSheet(context);
-                },
-              ),
-              if (state.showModis ?? false)
+              if (_mapController != null)
+                MarkerStack<Fire, FireMarker, FireMarkerState, FireStatus>(
+                  mapController: _mapController!,
+                  data: state.fires,
+                  filters: state.activeFilters,
+                  openModal: (_) {
+                    _openModalSheet(context);
+                  },
+                ),
+              if (state.showModis && _mapController != null)
                 MarkerStack<Modis, ModisMarker, ModisMarkerState, void>(
-                  mapController: _mapController,
+                  mapController: _mapController!,
                   data: state.modis,
                   openModal: (item) {
                     _openModisModal(context, item);
                   },
+                  filters: [],
                 ),
-              if (state.showViirs ?? false)
+              if (state.showViirs && _mapController != null)
                 MarkerStack<Viirs, ViirsMarker, ViirsMarkerState, void>(
-                  mapController: _mapController,
+                  mapController: _mapController!,
                   data: state.viirs,
                   openModal: (item) {
                     _openViirsModal(context, item);
                   },
+                  filters: [],
                 ),
               const MapboxCopyright(),
               Positioned(
@@ -144,16 +145,16 @@ class _HomePageState extends State<HomePage> {
                 child: SafeArea(
                   child: Column(
                     children: [
-                      const MapButtonOverlayBackground(
-                        child: const SatelliteButton(),
+                      MapButtonOverlayBackground(
+                        child: SatelliteButton(),
                       ),
                       const SizedBox(height: 24),
-                      const MapButtonOverlayBackground(
-                        child: const ViirsButton(),
+                      MapButtonOverlayBackground(
+                        child: ViirsButton(),
                       ),
                       const SizedBox(height: 24),
-                      const MapButtonOverlayBackground(
-                        child: const ModisButton(),
+                      MapButtonOverlayBackground(
+                        child: ModisButton(),
                       ),
                     ],
                   ),

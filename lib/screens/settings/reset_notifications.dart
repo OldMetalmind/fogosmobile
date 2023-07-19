@@ -60,7 +60,7 @@ class _ResetNotificationsState extends State<ResetNotifications> {
           bool isLocationTurnedOn = value != 0;
 
           if (isLocationTurnedOn) {
-            store.dispatch(SetPreferenceAction(key, value));
+            store.dispatch(SetPreferenceAction(key, value.toInt()));
           }
         }
       });
@@ -101,7 +101,8 @@ class _ResetNotificationsState extends State<ResetNotifications> {
             else
               MaterialButton(
                 textTheme: ButtonTextTheme.normal,
-                child: Text(FogosLocalizations.of(context).textResetNotifications),
+                child:
+                    Text(FogosLocalizations.of(context).textResetNotifications),
                 onPressed: () {
                   _resetFirebaseNotifications();
                 },

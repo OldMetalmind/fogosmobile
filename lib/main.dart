@@ -305,6 +305,7 @@ class _FirstPageState extends State<FirstPage> with WidgetsBindingObserver {
                 },
               ),
             ],
+            bottom: null,
           ),
           drawer: Drawer(
             child: ListView(

@@ -18,12 +18,12 @@ import 'package:fogosmobile/reducers/viirs_reducer.dart';
 import 'package:fogosmobile/reducers/warnings_reducer.dart';
 
 AppState appReducer(AppState state, action) {
-  bool isLoading;
-  bool hasFirstLoad;
-  bool hasPreferences;
-  bool hasContributors;
-  bool showViirs;
-  bool showModis;
+  bool isLoading = false;
+  bool hasFirstLoad = false;
+  bool hasPreferences = false;
+  bool hasContributors = false;
+  bool showViirs = false;
+  bool showModis = false;
 
   // print('action is action $action');
 
@@ -112,7 +112,9 @@ AppState appReducer(AppState state, action) {
   return AppState(
     isLoading: isLoading,
     fires: firesReducer(state.fires, action),
-    selectedFire: fireReducer(state.selectedFire, action),
+    selectedFire: state.selectedFire == null
+        ? null
+        : fireReducer(state.selectedFire!, action),
     fireMeansHistory: fireMeansHistoryReducer(state.fireMeansHistory, action),
     fireDetailsHistory:
         fireDetailsHistoryReducer(state.fireDetailsHistory, action),
@@ -120,7 +122,7 @@ AppState appReducer(AppState state, action) {
     contributors: contributorsReducer(state.contributors, action),
     hasFirstLoad: hasFirstLoad,
     hasPreferences: hasPreferences,
-    hasContributors: hasContributors ?? state.contributors.isNotEmpty,
+    hasContributors: hasContributors,
     preferences: preferencesReducer(state.preferences, action),
     activeFilters: filtersReducer(state.activeFilters, action),
     nowStats: nowStatsReducer(state.nowStats, action),

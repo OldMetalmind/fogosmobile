@@ -7,7 +7,7 @@ import 'package:fogosmobile/models/modis.dart';
 import 'package:fogosmobile/screens/widgets/mapbox_markers/marker_base.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
-class ModisMarker extends StatefulWidget implements BaseMarker{
+class ModisMarker extends StatefulWidget implements BaseMarker {
   final Modis _modis;
   final Point _initialPosition;
   final LatLng _coordinate;
@@ -34,16 +34,17 @@ class ModisMarker extends StatefulWidget implements BaseMarker{
   LatLng get location => _coordinate;
 }
 
-class ModisMarkerState extends BaseMarkerState<ModisMarker>{
+class ModisMarkerState extends BaseMarkerState<ModisMarker> {
   final _iconSize = 10.0;
 
-  Point _position;
+  late Point _position;
 
   @override
   void initState() {
     _position = widget._initialPosition;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     var ratio = 1.0;
@@ -56,7 +57,7 @@ class ModisMarkerState extends BaseMarkerState<ModisMarker>{
       left: _position.x / ratio - _iconSize / 2,
       top: _position.y / ratio - _iconSize / 2,
       child: GestureDetector(
-        onTap: () => widget._openModal?.call(widget._modis),
+        onTap: () => widget._openModal.call(widget._modis),
         child: Container(
           decoration:
               BoxDecoration(color: Colors.amberAccent, shape: BoxShape.circle),

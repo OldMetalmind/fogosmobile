@@ -15,7 +15,7 @@ String viirsResultToJson(ViirsResult data) => json.encode(data.toJson());
 
 class ViirsResult {
   ViirsResult({
-    this.viirs,
+    required this.viirs,
   });
 
   Viirs viirs;
@@ -38,20 +38,20 @@ class ViirsResult {
 
 class Viirs extends BaseMapboxModel implements Equatable {
   Viirs({
-    this.latitude,
-    this.longitude,
-    this.brightTi4,
-    this.scan,
-    this.track,
-    this.acqDate,
-    this.acqTime,
-    this.satellite,
-    this.confidence,
-    this.version,
-    this.brightTi5,
-    this.frp,
-    this.daynight,
-  }) : super(LatLng(latitude ?? 0.0, longitude ?? 0.0), '$latitude');
+    required this.latitude,
+    required this.longitude,
+    required this.brightTi4,
+    required this.scan,
+    required this.track,
+    required this.acqDate,
+    required this.acqTime,
+    required this.satellite,
+    required this.confidence,
+    required this.version,
+    required this.brightTi5,
+    required this.frp,
+    required this.daynight,
+  }) : super(LatLng(latitude, longitude), '$latitude');
 
   double latitude;
   double longitude;
@@ -68,16 +68,12 @@ class Viirs extends BaseMapboxModel implements Equatable {
   String daynight;
 
   factory Viirs.fromJson(Map<String, dynamic> json) => Viirs(
-        latitude:
-            json["latitude"] != null ? double.tryParse(json["latitude"]) : null,
-        longitude: json["latitude"] != null
-            ? double.tryParse(json["longitude"])
-            : null,
+        latitude: json["latitude"],
+        longitude: json["latitude"],
         brightTi4: json["bright_ti4"],
         scan: json["scan"],
         track: json["track"],
-        acqDate:
-            json["acq_date"] != null ? DateTime.parse(json["acq_date"]) : null,
+        acqDate: json["acq_date"],
         acqTime: json["acq_time"],
         satellite: json["satellite"],
         confidence: json["confidence"],
@@ -126,6 +122,6 @@ class Viirs extends BaseMapboxModel implements Equatable {
 
   @override
   bool skip<T>(List<T> filters) {
-    return !(latitude != null && longitude != null) && !(latitude != 0.0 && longitude != 0.0);
+    return latitude == 0.0 && longitude == 0.0;
   }
 }

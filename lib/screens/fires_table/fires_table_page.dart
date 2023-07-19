@@ -197,13 +197,13 @@ class _FiresTablePageState extends State<FiresTablePage> {
                               ),
                             ),
                             DataCell(
-                              Text(fire.human?.toString() ?? 0),
+                              Text(fire.human.toString()),
                             ),
                             DataCell(
-                              Text(fire.terrain?.toString() ?? 0),
+                              Text(fire.terrain.toString()),
                             ),
                             DataCell(
-                              Text(fire.aerial?.toString() ?? 0),
+                              Text(fire.aerial.toString()),
                             ),
                           ],
                         ),

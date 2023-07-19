@@ -19,7 +19,7 @@ class Notifications extends StatefulWidget {
 class _NotificationsState extends State<Notifications> {
   List locations = [];
   TextEditingController controller = new TextEditingController();
-  String filter;
+  String? filter;
 
   @override
   initState() {
@@ -77,7 +77,8 @@ class _NotificationsState extends State<Notifications> {
               store.dispatch(new LoadAllPreferencesAction());
             };
           },
-          builder: (BuildContext context, SetPreferenceCallBack setPreferenceAction) {
+          builder: (BuildContext context,
+              SetPreferenceCallBack setPreferenceAction) {
             return new Column(
               children: <Widget>[
                 new Padding(
@@ -85,7 +86,8 @@ class _NotificationsState extends State<Notifications> {
                 ),
                 new ListTile(
                   title: new TextField(
-                    decoration: new InputDecoration(labelText: FogosLocalizations.of(context).textCounty),
+                    decoration: new InputDecoration(
+                        labelText: FogosLocalizations.of(context).textCounty),
                     controller: controller,
                   ),
                 ),
@@ -97,12 +99,17 @@ class _NotificationsState extends State<Notifications> {
                         final _location = this.locations[index];
                         return filter == null ||
                                 filter == "" ||
-                                transformStringToSearch(_location['value']['name']).contains(transformStringToSearch(filter))
+                                transformStringToSearch(
+                                        _location['value']['name'])
+                                    .contains(transformStringToSearch(filter!))
                             ? CheckboxListTile(
                                 title: Text(_location['value']['name']),
-                                value: state.preferences['pref-${_location['key']}'] == 1,
-                                onChanged: (bool value) {
-                                  setPreferenceAction(_location['key'], value == true ? 1 : 0);
+                                value: state.preferences[
+                                        'pref-${_location['key']}'] ==
+                                    1,
+                                onChanged: (bool? value) {
+                                  setPreferenceAction(
+                                      _location['key'], value == true ? 1 : 0);
                                 },
                               )
                             : new Container();

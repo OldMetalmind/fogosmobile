@@ -37,14 +37,15 @@ class NowStatistics extends StatelessWidget {
   }
 
   Widget _buildItem(String imgPath, String text,
-      [double height = 50.0, Color color]) {
+      [double height = 50.0, Color? color]) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         SvgPicture.asset(
           imgPath,
           height: height,
-          color: color,
+          colorFilter:
+              color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
         ),
         SizedBox(
           width: 5,

@@ -5,7 +5,7 @@ import 'package:fogosmobile/models/app_state.dart';
 import 'package:redux/redux.dart';
 
 class ViirsButton extends StatelessWidget {
-  const ViirsButton({Key key}) : super(key: key);
+  const ViirsButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ViirsButton extends StatelessWidget {
                 ),
                 child: Text('Viirs'),
               ),
-              if (state.showViirs ?? false)
+              if (state.showViirs)
                 Positioned(
                   top: 5,
                   right: 5,

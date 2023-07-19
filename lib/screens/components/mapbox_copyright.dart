@@ -3,8 +3,7 @@ import 'package:fogosmobile/utils/uri_utils.dart';
 import 'package:fogosmobile/localization/fogos_localizations.dart';
 
 class MapboxCopyright extends StatelessWidget {
-
-  const MapboxCopyright({Key key}) : super(key: key);
+  const MapboxCopyright({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +42,10 @@ class MapboxCopyright extends StatelessWidget {
   InkWell _createCopyrightOption(String title, String url) {
     return InkWell(
       onTap: () => launchURL(url),
-      child: Text(title,
-          style:
-              TextStyle(decoration: TextDecoration.underline, fontSize: 12.0)),
+      child: Text(
+        title,
+        style: TextStyle(decoration: TextDecoration.underline, fontSize: 12.0),
+      ),
     );
   }
 }

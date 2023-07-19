@@ -5,7 +5,9 @@ import 'package:fogosmobile/utils/uri_utils.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class ContributorItem extends StatelessWidget {
-  ContributorItem({this.contributor});
+  ContributorItem({
+    required this.contributor,
+  });
 
   final Contributor contributor;
 
@@ -19,15 +21,13 @@ class ContributorItem extends StatelessWidget {
         child: ListTile(
           dense: true,
           contentPadding: EdgeInsets.only(left: 8.0, right: 8.0),
-          title: (contributor.name != null && contributor.name.isNotEmpty)
-              ? Text('${contributor.name}')
-              : Container(),
-          subtitle: (contributor.bio != null && contributor.bio.isNotEmpty)
-              ? AutoSizeText('${contributor.bio}',
-                  minFontSize: 10.0,
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis)
-              : Container(),
+          title: Text(contributor.name),
+          subtitle: AutoSizeText(
+            '${contributor.bio}',
+            minFontSize: 10.0,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+          ),
           leading: Container(
             width: 50,
             height: 50,
@@ -40,8 +40,7 @@ class ContributorItem extends StatelessWidget {
                     width: 50,
                     height: double.infinity,
                     fit: BoxFit.fill,
-                    placeholder: (context, url) =>
-                        CircularProgressIndicator(),
+                    placeholder: (context, url) => CircularProgressIndicator(),
                     errorWidget: (context, url, error) =>
                         Icon(Icons.account_box),
                     imageUrl: contributor.avatarUrl,

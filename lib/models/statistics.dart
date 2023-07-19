@@ -1,12 +1,36 @@
 import 'dart:collection';
 
+// TODO: Needs revision
+List<String> sortKeysIncreasingValue(Map<String, int> districtTempMap) {
+  final sortedKeys = districtTempMap.keys.toList(growable: false)
+    ..sort(
+      (k1, k2) {
+        if (districtTempMap.containsKey(k1) &&
+            districtTempMap.containsKey(k2)) {
+          return districtTempMap[k1]!.compareTo(districtTempMap[k2]!);
+        }
+        return 0;
+      },
+    );
+  return sortedKeys;
+}
+
 class NowStats {
   final String man;
   final String aerial;
   final String cars;
   final String total;
 
-  NowStats({this.man, this.aerial, this.cars, this.total});
+  NowStats({
+    required this.man,
+    required this.aerial,
+    required this.cars,
+    required this.total,
+  });
+
+  factory NowStats.empty() {
+    return NowStats(man: '0', aerial: '0', cars: '0', total: '0');
+  }
 
   factory NowStats.fromJson(Map<String, dynamic> parsedJson) {
     return NowStats(
@@ -21,15 +45,22 @@ class TodayStats {
   final List<IntervalStats> intervalStatsList;
   final List<District> districtList;
 
-  TodayStats({this.intervalStatsList, this.districtList});
+  TodayStats({
+    required this.intervalStatsList,
+    required this.districtList,
+  });
+
+  factory TodayStats.empty() {
+    return TodayStats(intervalStatsList: [], districtList: []);
+  }
 
   factory TodayStats.fromJson(Map<String, dynamic> parsedJson) {
     List<IntervalStats> intervalStatsList = <IntervalStats>[];
     List<District> districtList = <District>[];
     Map<String, int> districtTempMap = Map<String, int>();
 
-    parsedJson?.forEach(
-        (i, j) => intervalStatsList.add(IntervalStats.fromJson(j, i)));
+    parsedJson
+        .forEach((i, j) => intervalStatsList.add(IntervalStats.fromJson(j, i)));
 
     // Checks for double entries and sums them
     intervalStatsList.forEach((d) {
@@ -42,9 +73,10 @@ class TodayStats {
       });
     });
 
+    // TODO: Needs revision
     // Sort by increasing values
-    var sortedKeys = districtTempMap.keys.toList(growable: false)
-      ..sort((k1, k2) => districtTempMap[k1].compareTo(districtTempMap[k2]));
+
+    List<String> sortedKeys = sortKeysIncreasingValue(districtTempMap);
     LinkedHashMap sortedMap = LinkedHashMap.fromIterable(sortedKeys,
         key: (k) => k, value: (k) => districtTempMap[k]);
 
@@ -54,7 +86,9 @@ class TodayStats {
     });
 
     return TodayStats(
-        intervalStatsList: intervalStatsList, districtList: districtList);
+      intervalStatsList: intervalStatsList,
+      districtList: districtList,
+    );
   }
 }
 
@@ -62,15 +96,22 @@ class YesterdayStats {
   final List<IntervalStats> intervalStatsList;
   final List<District> districtList;
 
-  YesterdayStats({this.intervalStatsList, this.districtList});
+  YesterdayStats({
+    required this.intervalStatsList,
+    required this.districtList,
+  });
+
+  factory YesterdayStats.empty() {
+    return YesterdayStats(intervalStatsList: [], districtList: []);
+  }
 
   factory YesterdayStats.fromJson(Map<String, dynamic> parsedJson) {
     List<IntervalStats> intervalStatsList = <IntervalStats>[];
     List<District> districtList = <District>[];
     Map<String, int> districtTempMap = Map<String, int>();
 
-    parsedJson?.forEach(
-        (i, j) => intervalStatsList.add(IntervalStats.fromJson(j, i)));
+    parsedJson
+        .forEach((i, j) => intervalStatsList.add(IntervalStats.fromJson(j, i)));
 
     // Checks for double entries and sums them
     intervalStatsList.forEach((d) {
@@ -84,8 +125,7 @@ class YesterdayStats {
     });
 
     // Sort by increasing values
-    var sortedKeys = districtTempMap.keys.toList(growable: false)
-      ..sort((k1, k2) => districtTempMap[k1].compareTo(districtTempMap[k2]));
+    List<String> sortedKeys = sortKeysIncreasingValue(districtTempMap);
     LinkedHashMap sortedMap = LinkedHashMap.fromIterable(sortedKeys,
         key: (k) => k, value: (k) => districtTempMap[k]);
 
@@ -103,7 +143,10 @@ class LastNightStats {
   final int total;
   final List<District> districtList;
 
-  LastNightStats({this.total, this.districtList});
+  LastNightStats({
+    required this.total,
+    required this.districtList,
+  });
 
   factory LastNightStats.fromJson(Map<String, dynamic> json) {
     List<District> districtList = <District>[];
@@ -123,7 +166,13 @@ class LastNightStats {
 class WeekStats {
   final List<Day> days;
 
-  WeekStats({this.days});
+  WeekStats({
+    required this.days,
+  });
+
+  factory WeekStats.empty() {
+    return WeekStats(days: []);
+  }
 
   factory WeekStats.fromJson(List<dynamic> json) {
     List<Day> days = <Day>[];
@@ -139,7 +188,11 @@ class Day {
   final int total;
   final int fake;
 
-  Day({this.label, this.total, this.fake});
+  Day({
+    required this.label,
+    required this.total,
+    required this.fake,
+  });
 
   factory Day.fromJson(Map<String, dynamic> json) {
     return Day(label: json['label'], total: json['total'], fake: json['false']);
@@ -149,7 +202,9 @@ class Day {
 class LastHoursStats {
   final List<LastHour> lastHours;
 
-  LastHoursStats({this.lastHours});
+  LastHoursStats({
+    required this.lastHours,
+  });
 
   factory LastHoursStats.fromJson(List<dynamic> json) {
     List<LastHour> lastHours = <LastHour>[];
@@ -165,11 +220,16 @@ class LastHour {
   final int total;
   final DateTime label;
 
-  LastHour({this.man, this.aerial, this.cars, this.total, this.label});
+  LastHour({
+    required this.man,
+    required this.aerial,
+    required this.cars,
+    required this.total,
+    required this.label,
+  });
 
   factory LastHour.fromJson(Map<String, dynamic> parsedJson) {
-    DateTime dateLabel =
-        DateTime.fromMillisecondsSinceEpoch(
+    DateTime dateLabel = DateTime.fromMillisecondsSinceEpoch(
         parsedJson['created'].runtimeType == int
             ? parsedJson['created'] * 1000
             : parsedJson['created']['sec'] * 1000);
@@ -189,7 +249,11 @@ class IntervalStats {
   final int total;
   final Map<String, int> districtMap;
 
-  IntervalStats({this.total, this.districtMap, this.label});
+  IntervalStats({
+    required this.total,
+    required this.districtMap,
+    required this.label,
+  });
 
   factory IntervalStats.fromJson(Map<String, dynamic> json, String label) {
     int total = json['total'];
@@ -208,7 +272,10 @@ class District {
   final String district;
   final int fires;
 
-  District({this.district, this.fires});
+  District({
+    required this.district,
+    required this.fires,
+  });
 
   factory District.fromJson(String district, int fire) {
     return District(district: district, fires: fire);

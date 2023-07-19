@@ -17,16 +17,19 @@ class MeansStatistics extends StatelessWidget {
     return StoreConnector<AppState, AppState>(
       converter: (Store<AppState> store) => store.state,
       onInit: (Store<AppState> store) {
-        store.dispatch(LoadFireMeansHistoryAction(store.state.selectedFire.id));
+        store
+            .dispatch(LoadFireMeansHistoryAction(store.state.selectedFire?.id));
       },
       builder: (BuildContext context, AppState state) {
+        if (state.isLoading) {
+          return Center(child: CircularProgressIndicator());
+        }
         MeansHistory stats = state.fireMeansHistory;
 
-        if (stats == null) {
-          if (state.errors != null && state.errors.contains('fireMeansHistory')) {
-            return Center(child: Text(FogosLocalizations.of(context).textProblemLoadingData));
-          }
-          return Center(child: CircularProgressIndicator());
+        if (state.errors.contains('fireMeansHistory')) {
+          return Center(
+            child: Text(FogosLocalizations.of(context).textProblemLoadingData),
+          );
         }
 
         List<charts.Series<Means, DateTime>> _createSampleData() {
@@ -89,8 +92,7 @@ class MeansStatistics extends StatelessWidget {
                       position: charts.BehaviorPosition.bottom,
                       outsideJustification:
                           charts.OutsideJustification.startDrawArea,
-                      cellPadding:
-                          EdgeInsets.only(right: 16.0, bottom: 4.0),
+                      cellPadding: EdgeInsets.only(right: 16.0, bottom: 4.0),
                     )
                   ],
                   defaultRenderer: charts.LineRendererConfig(
@@ -107,14 +109,15 @@ class MeansStatistics extends StatelessWidget {
   }
 
   Widget _buildItem(String imgPath, String text,
-      [double height = 50.0, Color color]) {
+      [double height = 50.0, Color? color]) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         SvgPicture.asset(
           imgPath,
           height: height,
-          color: color,
+          colorFilter:
+              color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
         ),
         SizedBox(
           width: 5,

@@ -28,10 +28,12 @@ Middleware<AppState> _createLoadWarnings() {
       final responseData = response.data.runtimeType == String
           ? json.decode(response.data)['data']
           : response.data['data'];
-      List<Warning> warnings = responseData.map<Warning>((model) => Warning.fromJson(model)).toList();
+      List<Warning> warnings = responseData
+          .map<Warning>((model) => Warning.fromJson(model))
+          .toList();
       store.dispatch(WarningsLoadedAction(warnings));
     } catch (e) {
-      store.dispatch(WarningsLoadedAction(null));
+      store.dispatch(WarningsLoadedAction([]));
       store.dispatch(AddErrorAction('warnings'));
       throw e;
     }
@@ -48,10 +50,12 @@ Middleware<AppState> _createLoadWarningsMadeira() {
       final responseData = response.data.runtimeType == String
           ? json.decode(response.data)['data']
           : response.data['data'];
-      List<WarningMadeira> warnings = responseData.map<WarningMadeira>((model) => WarningMadeira.fromJson(model)).toList();
+      List<WarningMadeira> warnings = responseData
+          .map<WarningMadeira>((model) => WarningMadeira.fromJson(model))
+          .toList();
       store.dispatch(WarningsMadeiraLoadedAction(warnings));
     } catch (e) {
-      store.dispatch(WarningsMadeiraLoadedAction(null));
+      store.dispatch(WarningsMadeiraLoadedAction([]));
       store.dispatch(AddErrorAction('warningsMadeira'));
       throw e;
     }

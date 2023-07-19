@@ -26,10 +26,7 @@ class FireMarker extends StatefulWidget implements BaseMarker {
     this._initialPosition,
     this._addMarkerState,
     this._openModal,
-  )   : assert(_coordinate != null),
-        assert(_initialPosition != null),
-        assert(_fire != null),
-        super(key: Key(key));
+  ) : super(key: Key(key));
 
   @override
   State<StatefulWidget> createState() {
@@ -43,9 +40,10 @@ class FireMarker extends StatefulWidget implements BaseMarker {
 }
 
 class FireMarkerState extends BaseMarkerState<FireMarker> {
+  ///TODO: Review, not being used.
   final _iconSize = 10.0;
 
-  Point _position;
+  late Point _position;
 
   @override
   void initState() {
@@ -62,13 +60,13 @@ class FireMarkerState extends BaseMarkerState<FireMarker> {
     }
 
     return Positioned(
-      left: _position.x / ratio - _getIconSize(widget._fire.scale) / 2,
-      top: _position.y / ratio - _getIconSize(widget._fire.scale) / 2,
+      left: _position.x / ratio - _getIconSize(widget._fire.scale ?? 1) / 2,
+      top: _position.y / ratio - _getIconSize(widget._fire.scale ?? 1) / 2,
       child: Container(
         decoration: BoxDecoration(
             color: getFireColor(widget._fire), shape: BoxShape.circle),
         child: IconButton(
-          iconSize: _getIconSize(widget._fire.scale),
+          iconSize: _getIconSize(widget._fire.scale ?? 1),
           icon: SvgPicture.asset(
             getCorrectStatusImage(
                 widget._fire.statusCode, widget._fire.important),
@@ -77,7 +75,7 @@ class FireMarkerState extends BaseMarkerState<FireMarker> {
           onPressed: () {
             store.dispatch(ClearFireAction());
             store.dispatch(LoadFireAction(widget._fire.id));
-            widget._openModal?.call(widget._fire);
+            widget._openModal.call(widget._fire);
           },
         ),
       ),
@@ -86,7 +84,7 @@ class FireMarkerState extends BaseMarkerState<FireMarker> {
 
   @override
   void updatePosition(Point<num> point) {
-    if(mounted) {
+    if (mounted) {
       setState(() {
         _position = point;
       });

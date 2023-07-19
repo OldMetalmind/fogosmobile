@@ -5,8 +5,8 @@ class SharedPreferencesManager {
   static final String _tag = 'SharedPreferencesManager';
   static final SharedPreferencesManager preferences =
       SharedPreferencesManager._();
-  static SharedPreferences _instance;
-  static bool _showLogs;
+  static late SharedPreferences _instance;
+  static bool _showLogs = false;
 
   SharedPreferencesManager._();
   _throwError() => throw Exception(
@@ -18,32 +18,31 @@ class SharedPreferencesManager {
   /// If [withLogs] param is set to `false`, most of the operations won't
   /// print any information.
   static Future<bool> init([bool withLogs = true]) async {
-    if (_instance == null) {
-      _showLogs = withLogs;
-      WidgetsFlutterBinding.ensureInitialized();
-      _instance = await SharedPreferences.getInstance().catchError((error) {
-        print(
-            '$_tag: Couldn\'t get the local preferences, operation failed with error: $error');
-      });
-      print('$_tag: Preferences loaded.');
-    }
-    return _instance != null;
+    _showLogs = withLogs;
+    WidgetsFlutterBinding.ensureInitialized();
+    _instance = await SharedPreferences.getInstance();
+    // .catchError((error) {
+    //   print(
+    //       '$_tag: Couldn\'t get the local preferences, operation failed with error: $error');
+    // });
+    print('$_tag: Preferences loaded.');
+    return true;
   }
 
   /// Returns a `bool` value for the provided [key]
-  bool getBool(String key) => _instance.getBool(key);
+  bool getBool(String key) => _instance.getBool(key) ?? false;
 
   /// Returns a `int` value for the provided [key]
-  int getInt(String key) => _instance.getInt(key);
+  int? getInt(String key) => _instance.getInt(key);
 
   /// Returns a `double` value for the provided [key]
-  double getDouble(String key) => _instance.getDouble(key);
+  double? getDouble(String key) => _instance.getDouble(key);
 
   /// Returns a `String` value for the provided [key]
-  String getString(String key) => _instance.getString(key);
+  String? getString(String key) => _instance.getString(key);
 
   /// Returns a `List<String>` value for the provided [key]
-  List<String> getStringList(String key) => _instance.getStringList(key);
+  List<String> getStringList(String key) => _instance.getStringList(key) ?? [];
 
   /// Saves the [value] for the provided [key].
   ///
@@ -63,7 +62,7 @@ class SharedPreferencesManager {
       return _instance.setDouble(key, value);
     } else if (value is String) {
       return _instance.setString(key, value);
-    } else if (value is List) {
+    } else if (value is List<String>) {
       return _instance.setStringList(key, value);
     } else {
       throw Exception('$_tag: Unsupported value type.');
@@ -74,8 +73,6 @@ class SharedPreferencesManager {
   ///
   /// The [key] must NOT be `null`.
   Future<bool> remove(String key) async {
-    assert(key != null);
-    if (_instance == null) _throwError();
     if (_showLogs) print('$_tag: Removing value for key [$key].');
 
     return _instance.remove(key).catchError((error) {

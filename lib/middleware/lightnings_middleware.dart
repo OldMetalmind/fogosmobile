@@ -22,12 +22,13 @@ Middleware<AppState> _createLightningStrikes() {
       String url = Endpoints.getLightnings;
       final response = await get(url);
       if (response.data != [] && response.data != null) {
-        List<Lightning> lightnings = LightningRemote.fromJson(response.data as Map<String, dynamic>).data;
+        List<Lightning> lightnings =
+            LightningRemote.fromJson(response.data as Map<String, dynamic>)
+                .data;
         store.dispatch(LightningsLoadedAction(lightnings));
       }
     } catch (e) {
       print(e);
-      print(e.stackTrace);
       store.dispatch(LightningsLoadedAction([]));
     }
   };

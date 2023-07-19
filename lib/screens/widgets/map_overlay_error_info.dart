@@ -5,16 +5,15 @@ import 'package:fogosmobile/models/app_state.dart';
 import 'package:redux/redux.dart';
 
 class MapOverlayErrorInfoWidget extends StatelessWidget {
-  const MapOverlayErrorInfoWidget({Key key}) : super(key: key);
+  const MapOverlayErrorInfoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return StoreConnector<AppState, AppState>(
       converter: (Store<AppState> store) => store.state,
       builder: (context, state) {
         if (state.fires.length < 1) {
-          if (state.errors != null && state.errors.contains('fires')) {
+          if (state.errors.contains('fires')) {
             return _MapOverlayErrorMessage();
           }
         }
@@ -25,9 +24,7 @@ class MapOverlayErrorInfoWidget extends StatelessWidget {
 }
 
 class _MapOverlayErrorMessage extends StatelessWidget {
-  const _MapOverlayErrorMessage({
-    Key key,
-  }) : super(key: key);
+  const _MapOverlayErrorMessage();
 
   @override
   Widget build(BuildContext context) {

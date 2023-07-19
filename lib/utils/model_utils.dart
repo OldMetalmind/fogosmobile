@@ -17,7 +17,9 @@ List<Fire> calculateFireImportance(List<Fire> fires) {
   }
 
   for (var fire in fires) {
-    fire.scale = _getPonderatedImportanceFactor(fire.importance, fire.statusCode, firesStatus) / 1.5;
+    fire.scale = _getPonderatedImportanceFactor(
+            fire.importance, fire.statusCode, firesStatus) /
+        1.5;
   }
   return fires;
 }
@@ -32,17 +34,22 @@ double _calculateImportanceValue(Fire data, Map<String, dynamic> status) {
     importantFireFactor = 2.0;
   }
 
-  var importance = data.human * manFactor + data.terrain * terrainFactor + data.aerial * aerialFactor * importantFireFactor;
+  var importance = data.human * manFactor +
+      data.terrain * terrainFactor +
+      data.aerial * aerialFactor * importantFireFactor;
   status[numberOfFires] += 1;
   if (status[topImportance] < importance) {
     status[topImportance] = importance;
   }
 
-  status[average] = (status[average] * (status[numberOfFires] - 1) + importance) / (status[numberOfFires]);
+  status[average] =
+      (status[average] * (status[numberOfFires] - 1) + importance) /
+          (status[numberOfFires]);
   return importance;
 }
 
-double _getPonderatedImportanceFactor(double importance, statusCode, Map<String, dynamic> status) {
+double _getPonderatedImportanceFactor(
+    double importance, statusCode, Map<String, dynamic> status) {
   var importanceScale = 0.0;
 
   // check for fake alarm's or calls

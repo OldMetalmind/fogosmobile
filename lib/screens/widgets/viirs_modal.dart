@@ -6,7 +6,10 @@ import 'package:fogosmobile/screens/utils/date_utils.dart';
 class ViirsModal extends StatelessWidget {
   final Viirs viirs;
 
-  const ViirsModal({Key key, this.viirs}) : super(key: key);
+  const ViirsModal({
+    super.key,
+    required this.viirs,
+  });
 
   String getConfidence(BuildContext context, String confidence) {
     if (confidence == 'nominal') {
@@ -94,7 +97,7 @@ class ViirsModal extends StatelessWidget {
                 children: <TextSpan>[
                   TextSpan(
                       text:
-                      "${FogosLocalizations.of(context).textConfidence}: ",
+                          "${FogosLocalizations.of(context).textConfidence}: ",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.black)),
                   TextSpan(

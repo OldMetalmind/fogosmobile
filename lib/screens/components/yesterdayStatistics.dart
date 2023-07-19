@@ -38,10 +38,10 @@ class YesterdayStatistics extends StatelessWidget {
             charts.Series<District, String>(
               id: FogosLocalizations.of(context).textYesterdayDistricts,
               colorFn: (District stats, _) => c.Color(
-                    r: (25 * stats.fires).clamp(0, 255),
-                    g: 0,
-                    b: 0,
-                  ),
+                r: (25 * stats.fires).clamp(0, 255),
+                g: 0,
+                b: 0,
+              ),
               domainFn: (District stats, _) => stats.district,
               measureFn: (District stats, _) => stats.fires,
               data: yesterdayStats.districtList,
@@ -53,8 +53,8 @@ class YesterdayStatistics extends StatelessWidget {
             animate: true,
             vertical: false,
             barRendererDecorator: charts.BarLabelDecorator<String>(),
-            domainAxis: charts.OrdinalAxisSpec(
-                renderSpec: charts.NoneRenderSpec()),
+            domainAxis:
+                charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
           );
 
           return Container(

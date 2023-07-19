@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class MapButtonOverlayBackground extends StatelessWidget {
   final Widget child;
 
-  const MapButtonOverlayBackground({Key key, this.child}) : super(key: key);
+  const MapButtonOverlayBackground({
+    super.key,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {

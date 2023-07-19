@@ -3,19 +3,23 @@ import 'dart:convert';
 import 'package:fogosmobile/models/base_location_model.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
-LightningRemote lightningFromJson(String str) => LightningRemote.fromJson(json.decode(str));
+LightningRemote lightningFromJson(String str) =>
+    LightningRemote.fromJson(json.decode(str));
 
 String lightningToJson(LightningRemote data) => json.encode(data.toJson());
 
 class LightningRemote {
   LightningRemote({
-    this.data,
+    required this.data,
   });
 
   List<Lightning> data;
 
-  factory LightningRemote.fromJson(Map<String, dynamic> json) => LightningRemote(
-        data: List<Lightning>.from(json["data"].map((x) => Lightning.fromJson(x))),
+  factory LightningRemote.fromJson(Map<String, dynamic> json) =>
+      LightningRemote(
+        data: List<Lightning>.from(
+          json["data"].map((x) => Lightning.fromJson(x)),
+        ),
       );
 
   Map<String, dynamic> toJson() => {
@@ -23,9 +27,6 @@ class LightningRemote {
       };
 
   static List<LightningRemote> fromList(List<dynamic> obj) {
-    if (obj == null) {
-      return [];
-    }
     return obj
         .cast<Map<String, dynamic>>()
         .map((data) => LightningRemote.fromJson(data))
@@ -35,9 +36,9 @@ class LightningRemote {
 
 class Lightning extends BaseMapboxModel {
   Lightning({
-    this.timestamp,
-    this.payload,
-  }): super(LatLng(payload?.latitude?? 0.0, payload?.longitude?? 0.0), timestamp);
+    required this.timestamp,
+    required this.payload,
+  }) : super(LatLng(payload.latitude, payload.longitude), timestamp);
 
   String timestamp;
   LightningData payload;
@@ -53,16 +54,17 @@ class Lightning extends BaseMapboxModel {
       };
 
   @override
-  bool skip<T>(List<T> filters) {
-    return !(payload.latitude != null && payload?.longitude != null  ?? false);
+  bool skip<T>(List<T> filter) {
+    //TODO: confirm if this is the correct way to filter
+    return false;
   }
 }
 
 class LightningData {
   LightningData({
-    this.latitude,
-    this.amplitude,
-    this.longitude,
+    required this.latitude,
+    required this.amplitude,
+    required this.longitude,
   });
 
   double latitude;
